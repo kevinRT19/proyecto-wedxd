@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="./css/formulario.css" />
+    <link rel="stylesheet" href="./css/loader.css">
+    <title>Formulario Registro</title>
+  </head>
+  <body>
+    <div class="centrado">
+      <div class="lds-ellipsis" id="onload" >
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+
+
+    <img
+      class="image"
+      src="./img/Captura_de_pantalla_2024-05-21_170546-removebg-preview.png"
+      alt="Screenshot of the application"
+    />
+      <section class="form-register">
+        <h4>Formulario Registro</h4>
+        <form action="http://localhost:3000/registro" method="post" >
+        <input
+          req
+          class="controls"
+          type="text"
+          name="nombre"
+          id="nombre"
+          placeholder="Ingrese su Nombre"
+          required
+        />
+        <input
+          class="controls"
+          type="text"
+          required
+          name="apellido"
+          id="apellido"
+          placeholder="Ingrese su Apellido"
+        />
+        <input
+          class="controls"
+          type="email"
+          name="correo"
+          id="correo"
+          placeholder="Ingrese su Correo"
+          required
+        />
+        <input
+          class="controls"
+          type="password"
+          name="contraseña"
+          id="contraseña"
+          placeholder="Ingrese su Contraseña"
+          required
+        />
+        <p>Estoy de acuerdo con <a href="terminos.html">Terminos y Condiciones</a></p>
+        <input
+          class="botons"
+          type="submit"
+          value="Registrar "
+          onclick="verificar()"
+        />
+        <p><a href="index.html">¿Ya tengo Cuenta?</a></p>
+      </section>
+    </form>
+  </body>
+  <script src="funcion.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+  <script src="./js/loader.js" ></script>
+</html>

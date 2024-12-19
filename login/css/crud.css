@@ -1,0 +1,25 @@
+body{
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(191, 88, 88, 1) 35%, rgba(255, 0, 0, 1) 100%);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+table{
+    background: gray;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 60%; /* Ajusta el ancho de la tabla */
+    max-width: 900px;
+    margin: 40px auto;
+  
+}
+
+.paginacion{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 20px;
+}
