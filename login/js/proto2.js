@@ -77,11 +77,13 @@ function generarFactura() {
   // Obtener datos del cliente
   const nombreCliente = document.getElementById("nombre-cliente").value;
   const direccionCliente = document.getElementById("direccion-cliente").value;
+  const fecha = document.getElementById("fecha").value;
 
   // Mostrar datos en la factura
   document.getElementById("nombre-cliente-factura").innerText = nombreCliente;
   document.getElementById("direccion-cliente-factura").innerText =
     direccionCliente;
+    document.getElementById("fecha-factura").innerText = fecha;
 
   // Copiar productos a la factura
   const productos = document.getElementById("tabla-productos").children;
@@ -99,58 +101,44 @@ function generarFactura() {
 }
 
 // Función para imprimir la factura
-function imprimirFactura(productos,total, codigoFactura, nombreCliente, direccionCliente) {
-  if (!productos.length) {
-    alert("No hay productos para imprimir");
-    return;
-  }
+function imprimirFactura() {
+ 
   const ventana = window.open("", "PRINT", "height=600,width=1200");
   ventana.document.write(`
-  <html>
-      <head>
-        <title>Factura</title>
-        <style>
-          body { font-family: Arial, sans-serif; }
-          table { width: 100%; border-collapse: collapse; }
-          th, td { border: 1px solid black; padding: 8px; text-align: center; }
-          th { background-color: #f2f2f2; }
-          .total { margin-top: 20px; font-size: 20px; }
-          .logo { width: 100px; height: 100px; }
-        </style>
-      </head>
-      <body>
-        <img src="./img/Captura_de_pantalla_2024-05-21_170546-removebg-preview.png" class="logo" alt="Logo de la empresa">
-        <h1>Factura</h1>
-        <strong>Código de Factura:</strong> <span id="codigo-factura">${codigoFactura}</span><br>
-        <strong>Nombre del Cliente:</strong> <span id="nombre-cliente-factura">${nombreCliente}</span><br>
-        <strong>Dirección:</strong> <span id="direccion-cliente-factura">${direccionCliente}</span><br>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Peso (kg)</th>
-                <th>Precio por kg (COP)</th>
-                <th>Subtotal (COP)</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-productos-factura">
-              ${productos.map(producto => `
-                <tr>
-                  <td>${producto.nombre}</td>
-                  <td>${producto.peso.toFixed(2)}</td>
-                  <td>${producto.precioPorKg.toFixed(2)}</td>
-                  <td>${producto.subtotal.toFixed(2)}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-        <div class="total">
-          Total: COP <span id="total-final-factura">${total.toFixed(2)}</span>
-        </div>
-      </body>
-    </html>
+  <div class="factura">
+      <h2>Factura de Districarnes S.V.</h2>
+      <img
+        id="logo"
+        src="./img/Captura_de_pantalla_2024-05-21_170546-removebg-preview.png"
+        style="width: 100px; height: 100px"
+        alt="Logo de la empresa"
+      /><br />
+      <strong>Código de Factura:</strong> <span id="codigo-factura"></span
+      ><br />
+      <strong>Nombre del Cliente:</strong>
+      <span id="nombre-cliente-factura"></span><br />
+      <strong>Dirección:</strong> <span id="direccion-cliente-factura"></span
+      ><br />
+      <strong>Fecha:</strong> <span id="fecha-factura"></span><br />
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Peso (kg)</th>
+              <th>Precio por kg (COP)</th>
+              <th>Subtotal (COP)</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-productos-factura">
+            <!-- Productos agregados aparecerán aquí en la factura -->
+          </tbody>
+        </table>
+      </div>
+      <div class="total">
+        Total: COP <span id="total-final-factura">0.00</span>
+      </div>
+    </div>
   `);
   ventana.document.close();
   ventana.focus();
