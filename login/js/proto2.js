@@ -99,69 +99,58 @@ function generarFactura() {
 }
 
 // Función para imprimir la factura
-function imprimirFactura() {
-  // Usar la URL del logo predeterminado
-  const logoUrl = "ruta-del-logo/logo-predeterminado.png";
-
-  const facturaContents = `
-     <div class="factura">
-        <div style="text-align: center; margin-bottom: 20px;">
-           <img id="logo" src="${logoUrl}" style="width: 100px; height: 100px;" alt="Logo de la empresa">
-        </div>
-        ${document.querySelector(".factura").innerHTML}
-     </div>
-  `;
-
-  const ventana = window.open("", "_blank");
+function imprimirFactura(productos,total, codigoFactura, nombreCliente, direccionCliente) {
+  if (!productos.length) {
+    alert("No hay productos para imprimir");
+    return;
+  }
+  const ventana = window.open("", "PRINT", "height=600,width=1200");
   ventana.document.write(`
-     <html>
-     <head>
+  <html>
+      <head>
         <title>Factura</title>
         <style>
-           @media print {
-              body {
-                 font-family: Arial, sans-serif;
-                 margin: 0;
-                 padding: 20px;
-              }
-              .factura {
-                 width: 100%;
-                 border: 1px solid #ccc;
-                 padding: 20px;
-                 box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                 max-width: 800px;
-                 margin: 0 auto;
-              }
-              .factura img {
-                 max-width: 100px;
-                 height: auto;
-              }
-              table {
-                 width: 100%;
-                 border-collapse: collapse;
-                 margin-bottom: 20px;
-              }
-              table, th, td {
-                 border: 1px solid #ddd;
-              }
-              th, td {
-                 padding: 10px;
-                 text-align: left;
-              }
-              .total {
-                 text-align: right;
-                 margin-top: 20px;
-              }
-              .no-imprimir {
-                 display: none;
-              }
-           }
+          body { font-family: Arial, sans-serif; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid black; padding: 8px; text-align: center; }
+          th { background-color: #f2f2f2; }
+          .total { margin-top: 20px; font-size: 20px; }
+          .logo { width: 100px; height: 100px; }
         </style>
-     </head>
-     <body>
-        ${facturaContents}
-     </body>
-     </html>
+      </head>
+      <body>
+        <img src="./img/Captura_de_pantalla_2024-05-21_170546-removebg-preview.png" class="logo" alt="Logo de la empresa">
+        <h1>Factura</h1>
+        <strong>Código de Factura:</strong> <span id="codigo-factura">${codigoFactura}</span><br>
+        <strong>Nombre del Cliente:</strong> <span id="nombre-cliente-factura">${nombreCliente}</span><br>
+        <strong>Dirección:</strong> <span id="direccion-cliente-factura">${direccionCliente}</span><br>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Peso (kg)</th>
+                <th>Precio por kg (COP)</th>
+                <th>Subtotal (COP)</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-productos-factura">
+              ${productos.map(producto => `
+                <tr>
+                  <td>${producto.nombre}</td>
+                  <td>${producto.peso.toFixed(2)}</td>
+                  <td>${producto.precioPorKg.toFixed(2)}</td>
+                  <td>${producto.subtotal.toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="total">
+          Total: COP <span id="total-final-factura">${total.toFixed(2)}</span>
+        </div>
+      </body>
+    </html>
   `);
   ventana.document.close();
   ventana.focus();
